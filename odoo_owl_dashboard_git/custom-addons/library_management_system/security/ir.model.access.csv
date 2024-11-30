@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_authors,access.library.authors,model_library_authors,base.group_user,1,1,1,1
+access_library_books,access.library.books,model_library_books,base.group_user,1,1,1,1
+access_library_categories,access.library.categories,model_library_categories,base.group_user,1,1,1,1
+access_library_employees,access.library.employees,model_library_employees,base.group_user,1,1,1,1
+access_library_invoice,access.library.invoice,model_library_invoice,base.group_user,1,1,1,1
+access_library_member,access.library.member,model_library_member,base.group_user,1,1,1,1

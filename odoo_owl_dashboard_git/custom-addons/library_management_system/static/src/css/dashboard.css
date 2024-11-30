@@ -1,0 +1,91 @@
+/* Base styling for the library dashboard */
+.library-dashboard {
+    background-color: #f4f4f9; /* Soft background */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+.library-dashboard-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+}
+
+/* Card layout for key metrics (e.g., total books, active borrows) */
+.library-dashboard .dashboard-card {
+    display: inline-block;
+    width: 30%;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 10px 20px 10px;
+}
+
+.library-dashboard .dashboard-card h3 {
+    font-size: 18px;
+    color: #666;
+}
+
+.library-dashboard .dashboard-card p {
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+}
+
+/* Styling for buttons on the dashboard */
+.library-dashboard .btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.library-dashboard .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Table styling (for displaying list of books, borrows, etc.) */
+.library-dashboard table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.library-dashboard table th, .library-dashboard table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.library-dashboard table th {
+    background-color: #f8f9fa;
+    text-align: left;
+}
+
+.library-dashboard table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.library-dashboard table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .library-dashboard .dashboard-card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

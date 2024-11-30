@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="menu_json_root" name="JSON Data"/>
+    <menuitem id="menu_country" name="Country Data" parent="menu_json_root"/>
+    <menuitem id="menu_country_data" name="Data" parent="menu_json_root" action="action_country_data"/>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="report_library_id_invoice">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1>Invoice Report</h1>
+                    </div>
+                    <div>
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Book Name</th>
+                                    <th>Issue Date</th>
+                                    <th>Return Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="o">
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <span t-esc="o['ref']"/>
+                                            <div style="text-align: center;">
+                                                <img t-att-src="'/report/barcode/Code128/'+o.ref"
+                                                     style="width:200px;height:50px;margin: 0 auto;" alt="Barcode"/>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span t-esc="o.book_id.book if o.book_id else ''"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="o['issue_date']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="o['return_date']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

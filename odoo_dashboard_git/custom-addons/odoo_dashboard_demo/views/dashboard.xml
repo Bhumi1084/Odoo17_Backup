@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- Define the action for the custom dashboard -->
+        <record id="action_custom_dashboard" model="ir.actions.act_window">
+            <field name="name">Custom Dashboard</field>
+            <field name="res_model">custom.dashboard</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!-- Define the view for the custom dashboard -->
+        <record id="view_dashboard" model="ir.ui.view">
+            <field name="name">custom.dashboard</field>
+            <field name="model">custom.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Custom Dashboard">
+                    <header>
+                        <button string="Refresh" type="object" name="action_refresh_dashboard" class="oe_highlight"/>
+                    </header>
+                    <group>
+                        <h2>Sales Summary</h2>
+                        <div>
+                            <label for="total_sales"/>
+                            <field name="total_sales" readonly="1"/>
+                        </div>
+                        <div>
+                            <label for="total_orders"/>
+                            <field name="total_orders" readonly="1"/>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Add custom dashboard under the main sales menu -->
+        <menuitem id="menu_custom_dashboard" name="Custom Dashboard" parent="sale.sale_menu_root" action="action_custom_dashboard"/>
+    </data>
+</odoo>

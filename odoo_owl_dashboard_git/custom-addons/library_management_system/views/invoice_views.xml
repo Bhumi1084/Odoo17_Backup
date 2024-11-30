@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_form_view" model="ir.ui.view">
+            <field name="name">library.invoice.form</field>
+            <field name="model">library.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Invoice">
+                    <header>
+                        <button name="action_share_whatsapp" string="Message Member" class="oe_highlight"
+                                data-hotkey="w" icon="fa-whatsapp"
+                                type="object" invisible="state != 'delayed'"/>
+                        <button name="action_send_email" string="Email Member" class="oe_highlight"
+                                type="object" invisible="state != 'ended'"/>
+                        <button name="action_running" string="Confirm Booking" type="object" invisible="state != 'draft'"
+                                class="oe_highlight" data-hotkey="f"/>
+                        <button name="action_delayed" string="Delayed" type="object" invisible="state != 'running'"
+                                class="oe_highlight" data-hotkey="x"/>
+                        <button name="action_ended" string="Ended" type="object" invisible="state != 'running'"
+                                class="oe_highlight" data-hotkey="z"/>
+                        <button name="action_draft" string="Reset To Draft" type="object" invisible="state != 'delayed'"
+                                class="oe_highlight" data-hotkey="v"/>
+                        <field name="state" widget="statusbar" nolabel="1"
+                               statusbar_visible="draft,running,delayed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h4>
+                                <field name="ref" readonly="1"/>
+                            </h4>
+                            <h1>
+                                <field name="member_id" placeholder="Choose Member" default_focus="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="book_id" placeholder="Choose Book"/>
+                                <field name="employee_id" widget="many2one_avatar"/>
+                            </group>
+                            <group>
+                                <field name="issue_date"/>
+                                <field name="duration"/>
+                                <field name="return_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Progress" name="progress">
+                                <field name="progress" widget="percentpie"
+                                       options="{'style': 'width:120px; height:120px;'}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_tree_view" model="ir.ui.view">
+            <field name="name">library.invoice.tree</field>
+            <field name="model">library.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice" sample="1" multi_edit="1" decoration-success="state == 'ended'"
+                      decoration-danger="state == 'delayed'" decoration-warning="state == 'running'">
+                    <field name="ref" optional="show" decoration-bf="1"/>
+                    <field name="member_id" optional="show"/>
+                    <field name="book_id" optional="show"/>
+                    <field name="employee_id" widget="many2one_avatar_user" optional="show"/>
+                    <field name="activity_ids" widget="list_activity" optional="show"/>
+                    <field name="issue_date" optional="show"/>
+                    <field name="return_date" optional="show"/>
+                    <field name="duration" optional="hide"/>
+                    <field name="state" optional="show"
+                           decoration-success="state == 'ended'"
+                           decoration-info="state == 'draft'"
+                           decoration-danger="state == 'delayed'"
+                           decoration-warning="state == 'running'"
+                           widget="badge"/>
+                    <field name="progress" optional="show" widget="progressbar"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="invoice_search_view" model="ir.ui.view">
+            <field name="name">library.invoice.search</field>
+            <field name="model">library.invoice</field>
+            <field name="arch" type="xml">
+                <search>
+                    <searchpanel>
+                        <field name="state" icon="fa-list" select="multi" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="invoice_view_activity" model="ir.ui.view">
+            <field name="name">library.invoice.activity</field>
+            <field name="model">library.invoice</field>
+            <field name="arch" type="xml">
+                <activity string="Invoice">
+                    <field name="member_id"/>
+                    <templates>
+                        <div t-name="activity-box">
+                            <div class="ms-2">
+                                <field name="member_id" display="full" class="o_text_block"/>
+                            </div>
+                        </div>
+                    </templates>
+                </activity>
+            </field>
+        </record>
+
+        <record id="invoice_calendar_view" model="ir.ui.view">
+            <field name="name">library.invoice.calendar</field>
+            <field name="model">library.invoice</field>
+            <field name="arch" type="xml">
+                <calendar string="Invoice" date_start="return_date" mode="month" color="member_id" quick_create="0"
+                          event_limit="5" event_open_popup="true">
+                    <field name="member_id" filters="1"/>
+                    <field name="state" filters="1" invisible="1"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="invoice_pivot_view" model="ir.ui.view">
+            <field name="name">library.invoice.pivot</field>
+            <field name="model">library.invoice</field>
+            <field name="arch" type="xml">
+                <pivot string="Invoice" sample="1">
+                    <field name="state" type="row"/>
+                    <field name="member_id" type="col"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="invoice_kanban_view" model="ir.ui.view">
+            <field name="name">library.invoice.kanban</field>
+            <field name="model">library.invoice</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <field name="id"/>
+                    <field name="member_id"/>
+                    <field name="book_id"/>
+                    <field name="employee_id"/>
+                    <field name="issue_date"/>
+                    <field name="return_date"/>
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>
+                                            <field name="member_id"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <t t-if="record.book_id.value">
+                                    <hr class="mt8 mb8"/>
+                                    <field name="book_id"/>
+                                </t>
+                                <div>
+                                    <field name="return_date"/>
+                                </div>
+                                <div>
+                                    <field name="employee_id"/>
+                                </div>
+                                <div>
+                                    <field name="issue_date"/>
+                                </div>
+                                <div>
+                                    <field name="state"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="invoice_act_window" model="ir.actions.act_window">
+            <field name="name">Invoice</field>
+            <field name="res_model">library.invoice</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,activity</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Invoice.
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

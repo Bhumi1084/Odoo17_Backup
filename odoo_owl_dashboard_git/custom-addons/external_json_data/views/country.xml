@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+<!--        Tree View-->
+        <record id="view_country_tree" model="ir.ui.view">
+            <field name="name">country.tree</field>
+            <field name="model">country.import</field>
+            <field name="arch" type="xml">
+                <tree string="countrydata">
+                    <field name="flag" widget="image" options="{'size': [50, 30]}" string="Flag"/>
+                    <field name="name" string="Country Name"/>
+                    <field name="code" string="Country Code"/>
+                    <field name="tld" string="Country TLD"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        Form View-->
+        <record id="view_country_form" model="ir.ui.view">
+            <field name="name">country.form</field>
+            <field name="model">country.import</field>
+            <field name="arch" type="xml">
+                <form string="countrydata">
+                    <sheet name="country_form">
+                        <group>
+                            <field name="flag" widget="image" options="{'size': [50, 30]}" string="Flag"/>
+                            <field name="name" string="Country Name"/>
+                            <field name="code" string="Country Code"/>
+                            <field name="tld" string="Country TLD"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_country_data" model="ir.actions.act_window">
+            <field name="name">Country</field>
+            <field name="res_model">country.import</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    create a new data
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

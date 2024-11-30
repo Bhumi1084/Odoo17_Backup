@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="authors_form_view" model="ir.ui.view">
+            <field name="name">library.authors.form</field>
+            <field name="model">library.authors</field>
+            <field name="arch" type="xml">
+                <form string="Authors">
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Name" default_focus="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="biography"/>
+                            </group>
+                            <group>
+                                <field name="nationality"/>
+                            </group>
+                        </group>
+                        <notebook>
+                        <page string="Books">
+                            <field name="book_ids">
+                                <tree string="Books">
+                                    <field name="book"/>
+                                    <field name="production_year"/>
+                                    <field name="rating"/>
+                                    <field name="categories_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="authors_tree_view" model="ir.ui.view">
+            <field name="name">library.authors.tree</field>
+            <field name="model">library.authors</field>
+            <field name="arch" type="xml">
+                <tree string="Authors" sample="1" multi_edit="1">
+                    <field name="name" optional="show"/>
+                    <field name="nationality" optional="show"/>
+                    <field name="biography" optional="show"/>
+                    <field name="book_ids" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="authors_kanban_view" model="ir.ui.view">
+            <field name="name">library.authors.kanban</field>
+            <field name="model">library.authors</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <field name="name"/>
+                    <field name="nationality"/>
+                    <field name="biography"/>
+                    <field name="id"/>
+                    <field name="image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div style="width: 150px; height: 185px;">
+                                <div t-attf-class="oe_kanban_global_click">
+                                    <b>
+                                        <div style="font-size:20px;" class="o_kanban_image_fill_top">
+                                            <img t-att-src="kanban_image('library.authors','image', record.id.raw_value)"
+                                                 style="width:100%; height:166px;"/>
+                                        </div>
+                                        <br/>
+                                    </b>
+                                </div>
+                            </div>
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <t t-if="record.nationality.value">
+                                    <hr class="mt8 mb8"/>
+                                    <strong>Nationality:
+                                    </strong>
+                                    <field name="nationality"/>
+                                </t>
+                                <br/>
+                                <div><b>Biography: </b>
+                                    <field name="biography"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="authors_act_window" model="ir.actions.act_window">
+            <field name="name">Authors</field>
+            <field name="res_model">library.authors</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Authors.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

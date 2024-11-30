@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="member_form_view" model="ir.ui.view">
+            <field name="name">library.member.form</field>
+            <field name="model">library.member</field>
+            <field name="arch" type="xml">
+                <form string="Library Members">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" icon="fa-book">
+                                <field string="Borrows" name="invoice_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h4>
+                                <field name="ref" readonly="1"/>
+                            </h4>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Full Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="email" widget="email"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="city"/>
+                            </group>
+                            <group>
+                                <field name="address"/>
+                                <field name="gender" widget="radio"/>
+                                <field name="membership_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Invoice">
+                                <field name="invoice_ids">
+                                    <tree string="Invoice">
+                                        <field name="book_id" widget="badge"/>
+                                        <field name="issue_date" widget="badge"/>
+                                        <field name="return_date" widget="badge"/>
+                                        <field name="employee_id" widget="badge"/>
+                                        <field name="state" decoration-success="state == 'ended'"
+                                               decoration-info="state == 'draft'"
+                                               decoration-danger="state == 'delayed'"
+                                               decoration-warning="state == 'running'"
+                                               widget="badge"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="member_search_view" model="ir.ui.view">
+            <field name="name">library.member.search</field>
+            <field name="model">library.member</field>
+            <field name="arch" type="xml">
+                <search>
+                    <searchpanel>
+                        <field name="gender" icon="fa-users" select="multi" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="member_kanban_view" model="ir.ui.view">
+            <field name="name">library.member.kanban</field>
+            <field name="model">library.member</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="membership_date"/>
+                    <field name="address"/>
+                    <field name="phone"/>
+                    <field name="city"/>
+                    <field name="id"/>
+                    <field name="invoice_count"/>
+                    <field name="image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div style="width: 150px; height: 185px;">
+                                <div t-attf-class="oe_kanban_global_click">
+                                    <b>
+                                        <div style="font-size:20px;" class="o_kanban_image_fill_top">
+                                            <img t-att-src="kanban_image('library.member','image', record.id.raw_value)"
+                                                 style="width:100%; height:166px;"/>
+                                        </div>
+                                        <br/>
+                                    </b>
+                                </div>
+                            </div>
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <t t-if="record.email.value">
+                                    <hr class="mt8 mb8"/>
+                                    <b>Email:</b>
+                                    <field name="email"/>
+                                </t>
+                                <div>
+                                    <b>Phone:</b>
+                                    <field name="phone"/>
+                                </div>
+                                <div>
+                                    <b>Join Date:</b>
+                                    <field name="membership_date"/>
+                                </div>
+                                <div>
+                                    <b>Address:</b>
+                                    <field name="address"/>
+                                </div>
+                                <div>
+                                    <b>City:</b>
+                                    <field name="city"/>
+                                </div>
+                                <t t-if="record.invoice_count.raw_value > 0">
+                                    <div class="o_kanban_badge" style="color: white; background-color: red;">
+                                        <i class="fa fa-book"></i>
+                                        <span t-esc="record.invoice_count.raw_value"/>
+                                        Borrowed Books
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="member_tree_view" model="ir.ui.view">
+            <field name="name">library.member.tree</field>
+            <field name="model">library.member</field>
+            <field name="arch" type="xml">
+                <tree string="Library Members" sample="1" multi_edit="1">
+                    <field name="ref" optional="show" decoration-bf="1"/>
+                    <field name="name" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <field name="address" optional="hide"/>
+                    <field name="phone" optional="show"/>
+                    <field name="city" optional="show"/>
+                    <field name="gender" optional="show" decoration-success="gender=='Female'" decoration-bf="1" decoration-it="1"/>
+                    <field name="membership_date" optional="show"/>
+                    <field name="invoice_count" optional="hide"/>
+                    <field name="invoice_ids" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="member_act_window" model="ir.actions.act_window">
+            <field name="name">Library Members</field>
+            <field name="res_model">library.member</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+
+
+    </data>
+</odoo>

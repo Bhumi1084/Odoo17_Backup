@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="employees_form_view" model="ir.ui.view">
+            <field name="name">library.employees.form</field>
+            <field name="model">library.employees</field>
+            <field name="arch" type="xml">
+                <form string="Employees">
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Full Name" default_focus="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="email" widget="email"/>
+                                <field name="phone" widget="phone"/>
+                            </group>
+                            <group>
+                                <field name="job_title"/>
+                                <field name="hire_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="employees_tree_view" model="ir.ui.view">
+            <field name="name">library.employees.tree</field>
+            <field name="model">library.employees</field>
+            <field name="arch" type="xml">
+                <tree string="Employees" sample="1" multi_edit="1">
+                    <field name="name" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <field name="phone" optional="show"/>
+                    <field name="job_title" optional="show"/>
+                    <field name="hire_date" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="employees_kanban_view" model="ir.ui.view">
+            <field name="name">library.employees.kanban</field>
+            <field name="model">library.employees</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="job_title"/>
+                    <field name="hire_date"/>
+                    <field name="id" />
+                    <field name="image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div style="width: 150px; height: 185px;">
+                                <div t-attf-class="oe_kanban_global_click">
+                                    <b>
+                                        <div style="font-size:20px;" class="o_kanban_image_fill_top">
+                                            <img t-att-src="kanban_image('library.employees','image', record.id.raw_value)"
+                                                 style="width:100%; height:166px;"/>
+                                        </div>
+                                        <br/>
+                                    </b>
+                                </div>
+                            </div>
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong>
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <t t-if="record.job_title.value">
+                                    <hr class="mt8 mb8"/>
+                                    <b>Job Title: </b>
+                                    <field name="job_title"/>
+                                </t>
+                                <div><b>Phone: </b>
+                                    <field name="phone"/>
+                                </div>
+                                <div><b>Email: </b>
+                                    <field name="email"/>
+                                </div>
+                                <div><b>Hire Date: </b>
+                                    <field name="hire_date"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="employees_act_window" model="ir.actions.act_window">
+            <field name="name">Employees</field>
+            <field name="res_model">library.employees</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Library Employees.
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

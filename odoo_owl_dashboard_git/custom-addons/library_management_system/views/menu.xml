@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="library_root_menu" name="Library Management"/>
+    <menuitem name="Member" id="member_menu" parent="library_root_menu" action="member_act_window"/>
+    <menuitem name="Manage Books" id="manage_books_menu" parent="library_root_menu" action="books_act_window"/>
+    <menuitem name="Invoice" id="invoice_menu" parent="library_root_menu" action="invoice_act_window"/>
+    <menuitem name="Employees" id="employees_menu" parent="library_root_menu" action="employees_act_window"/>
+    <menuitem name="Authors" id="authors_menu" parent="library_root_menu" action="authors_act_window"/>
+    <menuitem name="Books Categories" id="categories_menu" parent="library_root_menu" action="categories_act_window"/>
+</odoo>

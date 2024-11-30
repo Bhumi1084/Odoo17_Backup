@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="categories_form_view" model="ir.ui.view">
+            <field name="name">library.categories.form</field>
+            <field name="model">library.categories</field>
+            <field name="arch" type="xml">
+                <form string="Library Categories">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Name" default_focus="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Books">
+                                <field name="books_ids">
+                                    <tree string="Books">
+                                        <field name="book"/>
+                                        <field name="production_year"/>
+                                        <field name="language"/>
+                                        <field name="rating"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="categories_tree_view" model="ir.ui.view">
+            <field name="name">library.categories.tree</field>
+            <field name="model">library.categories</field>
+            <field name="arch" type="xml">
+                <tree string="Library Categories" sample="1" multi_edit="1">
+                    <field name="name" optional="show"/>
+                    <field name="description" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="categories_act_window" model="ir.actions.act_window">
+            <field name="name">Books Categories</field>
+            <field name="res_model">library.categories</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Library Categories.
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>
