@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="CustomControlButton" owl="1">
+        <div class="control-button btn btn-light rounded-0 fw-bolder"
+             t-on-click="onClick">
+            <span>Custom Button</span>
+        </div>
+    </t>
+</templates>
