@@ -1,0 +1,11 @@
+<odoo>
+    <record id="action_bank_account_balance_report" model="ir.actions.report">
+        <field name="name">Bank Account Balance Report</field>
+        <field name="model">bank.account</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bank_management_system.report_bank_account_balance</field>
+        <field name="report_file">bank_management_system.report_bank_account_balance</field>
+        <field name="binding_model_id" ref="bank_management_system.model_bank_account"/> <!-- Bind action to bank.account model -->
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

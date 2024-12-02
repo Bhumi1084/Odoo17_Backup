@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="bank_management_system_menu" name="Bank Management" sequence="10"/>
+    <menuitem id="bank_account_menu" name="Bank Accounts" parent="bank_management_system_menu" action="action_bank_account"/>
+    <menuitem id="bank_transaction_menu" name="Bank Transactions" parent="bank_management_system_menu" action="action_bank_transaction"/>
+    <menuitem id="bank_report_menu" name="Bank Reports" parent="bank_management_system_menu" action="action_bank_account_balance_report"/>
+</odoo>
